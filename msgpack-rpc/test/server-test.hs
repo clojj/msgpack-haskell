@@ -14,7 +14,9 @@ main =
   where
 
     add :: Int -> Int -> Server Int
-    add x y = return $ x + y
+    add x y = do 
+      liftIO $ print $ "x: " ++ show x ++ ", y: " ++ show y 
+      return $ x + y
 
     echo :: String -> Server String
     echo s = do
