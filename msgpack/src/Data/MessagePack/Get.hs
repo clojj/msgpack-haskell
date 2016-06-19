@@ -31,6 +31,8 @@ import qualified Data.Text           as T
 import qualified Data.Text.Encoding  as T
 import qualified Data.Vector         as V
 
+import Debug.Trace
+
 getNil :: Get ()
 getNil = tag 0xC0
 
@@ -50,10 +52,10 @@ getInt =
     0xCD -> fromIntegral <$> getWord16be
     0xCE -> fromIntegral <$> getWord32be
     0xCF -> fromIntegral <$> getWord64be
-    0xD0 -> fromIntegral <$> getInt8
-    0xD1 -> fromIntegral <$> getInt16be
-    0xD2 -> fromIntegral <$> getInt32be
-    0xD3 -> fromIntegral <$> getInt64be
+    0xD0 -> fromIntegral <$> getInt8'
+    0xD1 -> fromIntegral <$> getInt16be'
+    0xD2 -> fromIntegral <$> getInt32be'
+    0xD3 -> fromIntegral <$> getInt64be'
     _    -> empty
 
 getFloat :: Get Float
@@ -119,17 +121,17 @@ getExt = do
     _ -> empty
   (,) <$> getWord8 <*> getByteString len
 
-getInt8 :: Get Int8
-getInt8 = fromIntegral <$> getWord8
+getInt8' :: Get Int8
+getInt8' = fromIntegral <$> getWord8
 
-getInt16be :: Get Int16
-getInt16be = fromIntegral <$> getWord16be
+getInt16be' :: Get Int16
+getInt16be' = fromIntegral <$> getWord16be
 
-getInt32be :: Get Int32
-getInt32be = fromIntegral <$> getWord32be
+getInt32be' :: Get Int32
+getInt32be' = fromIntegral <$> getWord32be
 
-getInt64be :: Get Int64
-getInt64be = fromIntegral <$> getWord64be
+getInt64be' :: Get Int64
+getInt64be' = fromIntegral <$> getWord64be
 
 tag :: Word8 -> Get ()
 tag t = do
