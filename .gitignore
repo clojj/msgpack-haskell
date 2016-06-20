@@ -16,3 +16,4 @@ tmp/
 /msgpack-aeson/cabal.sandbox.config
 /msgpack-aeson/.cabal-sandbox/
 /.stack-work/
+/msgpack-rpc/test/server-test
